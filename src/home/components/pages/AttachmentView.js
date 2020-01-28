@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import '../../stylesheets/Mainpage.css';
 import CenterNav from '../CenterNav';
+import { getAttachments } from '../controllers/FireController';
 
 const AttachmentView = () => {
+    useEffect(
+        () => {fetchAttachments()},
+        []
+    )
+    
+    const[attachment,setAttachment] = useState([])
+
+    const fetchAttachments = async() => {
+       // console.log((await getAttachments()).data);
+        setAttachment((await getAttachments()).data);
+    }
+
     return(
     <><hr/>
     <CenterNav/>
@@ -20,18 +33,13 @@ const AttachmentView = () => {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+            {attachment.map(attach => <tr key={attach.reg} >
+            <th scope="row">{attach.reg}</th>
+            <td>{attach.name}</td>
+            <td>{attach.phone}</td>
+            <td>{attach.institution}</td>
                 </tr>
-                <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                </tr>
+                )}
             </tbody>
             </table>
         </div>
