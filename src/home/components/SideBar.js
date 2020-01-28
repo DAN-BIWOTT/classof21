@@ -1,31 +1,38 @@
 import React, { useState } from 'react';
 import '../stylesheets/SideBar.css';
-import { Col } from 'react-bootstrap';
+import { Row,Col } from 'react-bootstrap';
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import { FaHome } from "react-icons/fa";
 import { GoBriefcase } from "react-icons/go";
-import { Mainpage } from './Mainpage';
+import Attachment from './pages/Attachment';
+import AttachmentView from './pages/AttachmentView';
+import Home from './pages/Home';
+import { TopNav } from './TopNav';
 
-export const SideBar = () => {
-    const[page,setPage] = useState("home");
+const SideBar = () => {
+    const[page,setPage] = useState(<Home/>);
     
     const changePage = (selected) =>{
      switch (selected) {
                 case 'home':
-                    setPage("home");
+                    setPage(<Home/>);
                     break;
                 case 'attachment':
-                    setPage("attachment");
+                    setPage(<Attachment/>);
+                    break;
+                case 'attachment/view':
+                    setPage(<AttachmentView/>);
                     break;
                 default:
-                    setPage("home");
+                    setPage(<Home/>);
                     break;
         }
     }
 
     return(
-        <>
+        <div className="Container-fluid">
+                  <Row>
        <Col id="sideBar">
             <SideNav style={{backgroundColor:"green"}}
         onSelect={changePage}
@@ -40,22 +47,37 @@ export const SideBar = () => {
                     Home
                 </NavText>
             </NavItem>
+
             <NavItem eventKey="attachment">
-                <NavIcon>
-                    <GoBriefcase style={{ fontSize: '1.75em' }}/>
-                </NavIcon>
+            <NavIcon>
+                <GoBriefcase style={{ fontSize: '1.75em' }}/>
+            </NavIcon>
+            <NavText>
+                Attachment
+            </NavText>
+            <NavItem eventKey="attachment">
                 <NavText>
-                    Attachment
+                    Form
                 </NavText>
             </NavItem>
+            <NavItem eventKey="attachment/view">
+                <NavText>
+                    View
+                </NavText>
+            </NavItem>
+        </NavItem>
+
         </SideNav.Nav>
     </SideNav>
         </Col>
-
-        <Mainpage 
-         myRender = {page} 
-        />
-     </>
+        <Col md="10" id="MainPage">
+             <TopNav />
+             {page}
+        </Col>
+        </Row>
+    </div>
 
     );
 }
+
+export default SideBar;

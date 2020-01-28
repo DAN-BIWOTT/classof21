@@ -1,9 +1,17 @@
 #MainPage{
     background-color: #f8f9fa;
-    padding-left: 8vmax;
+    padding-left: 10vmax;
 }
 
 h3{
     font-family: 'Roboto', sans-serif;
     font-family: 'Uncial Antiqua', cursive;
+}
+
+#formCard{
+    width: 70vw;
+    box-shadow: 0 0 2em -1em black;
+}
+#formCard:hover{
+    box-shadow: 0 0 4em -1em black;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import Home from './home/Main';
+import Home from './home/components/SideBar';
 import { BrowserRouter as Router, Switch,Route } from 'react-router-dom';
 
 const App = () => {
