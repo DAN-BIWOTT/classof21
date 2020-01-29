@@ -15,3 +15,13 @@ h3{
 #formCard:hover{
     box-shadow: 0 0 4em -1em black;
 }
+
+table {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}

@@ -31,8 +31,8 @@ const SideBar = () => {
     }
 
     return(
-        <div className="Container-fluid">
-                  <Row>
+        <div className="wrapper container-fluid">
+                  <div className="row">
        <Col id="sideBar">
             <SideNav style={{backgroundColor:"green"}}
         onSelect={changePage}
@@ -74,7 +74,7 @@ const SideBar = () => {
              <TopNav />
              {page}
         </Col>
-        </Row>
+        </div>
     </div>
 
     );
