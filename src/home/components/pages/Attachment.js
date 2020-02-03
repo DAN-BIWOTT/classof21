@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import '../../stylesheets/Mainpage.css';
 import { createAttachment } from '../controllers/FireController';
+import { SemipolarSpinner } from 'react-epic-spinners';
+import { useHistory } from 'react-router-dom';
 
 const Attachment = () => {
-
+let history = useHistory();
    
 const[reg,setReg] = useState("");
 const[institution,setInstitution] = useState("");
@@ -43,13 +45,29 @@ const updatePhone = (e) => {
 
 const sendData = async (e) => {
     e.preventDefault();
-
-    if((await createAttachment(data)).status === 200){
-      setInputStatus(true);
-    }
+    setInputStatus(true);
+    const response = (await createAttachment(data))
+    // console.log(response);
+    // if((await createAttachment(data)).status === 200){
+    //   setInputStatus(false);
+    //   history.push('/login')
+    // }else{
+    //   setInputStatus(false);
+    // }
 }
 
-
+const loader = () => {
+  if(inputStatus === false){
+    return(
+      <button onClick={ sendData } type="button" className="btn btn-primary">Submit</button>
+    );
+  }else{
+    return(
+    <button type="button" className="btn btn-lg btn-outline-primary" style={{marginLeft: '20vw'},{width:'15vw'}}>
+    <SemipolarSpinner  className="mx-auto" color="blue" size={30} animationDelay={20} />
+    </button>)
+  }
+}
 
     return(
     <><hr/>
@@ -58,7 +76,7 @@ const sendData = async (e) => {
           <h5 className="card-title">Attachment Form</h5><hr/>
           <h6 className="card-subtitle mb-2 text-muted">January-May</h6>
 
-          <form onSubmit={ sendData }>
+          <form>
             <div className="form-row">
               <div className="form-group col-md-6">
                 <label htmlFor="registration">Registration</label>
@@ -87,7 +105,7 @@ const sendData = async (e) => {
                 <input disabled={inputStatus} onChange={ updateInstitution } value={ institution } type="text" className="form-control" placeholder="Kenya Power" id="Institution" />
               </div>
             </div>
-            <button disabled={inputStatus} type="submit" className="btn btn-primary">Submit</button>
+            { loader() }
           </form>
 
         </div>

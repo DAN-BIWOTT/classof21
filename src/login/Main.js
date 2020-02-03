@@ -6,31 +6,19 @@ import './main.scss';
 const Main = () =>{
 
     const [isLoginActive,setIsLoginActive] = useState(true);
-    const current = isLoginActive? "Register":"Log in";
-    const currentactive = isLoginActive? "log in":"register";
+    const currentactive = isLoginActive? "register":"login";
+    const rn = () => {setIsLoginActive(isLoginActive ? false : true);}
     
     return(
         <div className="App">
-            <div className="login">
-                <div className="container">
-                    {isLoginActive && <Login/>}
-                    {!isLoginActive && <Register/>}
-                </div>
-                <RightSide/>
-            </div>
-        </div>
-    )
-}
-
-const RightSide = (props) => {
-    return(
-        <div className="right-side">
-            <div className="inner-container">
-                <div className="text">
-                    {props.current}
+                <div className="login">
+                    <div className="container">
+                        {isLoginActive && <Login/>}
+                        {!isLoginActive && <Register/>}
+                    </div>
+                    <button onClick={rn}>{currentactive}</button>
                 </div>
             </div>
-        </div>
     )
 }
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../stylesheets/SideBar.css';
-import { Row,Col } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import { FaHome } from "react-icons/fa";
@@ -31,9 +31,11 @@ const SideBar = () => {
     }
 
     return(
+        <>
+        <TopNav />
         <div className="wrapper container-fluid">
-                  <div className="row">
-       <Col id="sideBar">
+        <div className="row">
+       <Col md="2" sm="2" xs="2" id="sideBar">
             <SideNav style={{backgroundColor:"green"}}
         onSelect={changePage}
         >
@@ -70,13 +72,13 @@ const SideBar = () => {
         </SideNav.Nav>
     </SideNav>
         </Col>
-        <Col md="10" id="MainPage">
-             <TopNav />
+        
+        <Col md="10" sm="10" xs="10" id="MainPage">
              {page}
         </Col>
         </div>
     </div>
-
+        </>
     );
 }
 

@@ -5,7 +5,7 @@ const CenterNav = () =>{
         <div>
         <ul className="nav justify-content-center">
             <li className="nav-item">
-                <a className="nav-link active" href="#">Download Detailed Pdf</a>
+                <button className="btn btn-outline-info mb-4 nav-link active">Download Detailed Pdf</button>
             </li>
         </ul>
         </div>

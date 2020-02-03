@@ -28,7 +28,7 @@
             flex-direction: column;
             align-items: center;
 
-            .form-group {
+            .form-groups {
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
@@ -58,4 +58,9 @@
             }
         }    
     }
+}
+
+.custFont{
+    font-family: 'Roboto,sans-serif';
+    font-family: 'Uncial Antiqua,cursive';
 }

@@ -1,5 +1,6 @@
 #MainPage{
-    background-color: #f8f9fa;
+    background-color: #ffffff;;
+    background-image: url('../../images/home.svg');
     padding-left: 10vmax;
 }
 
