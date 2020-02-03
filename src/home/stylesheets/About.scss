@@ -1,0 +1,25 @@
+#AboutPage{
+    background-color: #ffffff;;
+    background-image: url('../../images/about.svg');
+    padding-left: 10vmax;
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-background-size: 10vh;
+  -moz-background-size: 100vh;
+  -o-background-size: 100vh;
+  background-size: 100vh;
+}
+
+.customJumbo{
+  position: absolute; /* or absolute */
+  width: 40vw;
+  background-color: #343a40cf;
+  border-radius: 25px;
+  background-position: left top;
+  background-repeat: repeat;
+  padding: 20px;
+}  
+
+h2,p{
+  color: white;
+}

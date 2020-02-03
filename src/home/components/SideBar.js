@@ -5,8 +5,10 @@ import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import { FaHome } from "react-icons/fa";
 import { GoBriefcase } from "react-icons/go";
+import { TiInfoLargeOutline } from "react-icons/ti";
 import Attachment from './pages/Attachment';
 import AttachmentView from './pages/AttachmentView';
+import About from './pages/About';
 import Home from './pages/Home';
 import { TopNav } from './TopNav';
 
@@ -23,6 +25,9 @@ const SideBar = () => {
                     break;
                 case 'attachment/view':
                     setPage(<AttachmentView/>);
+                    break;
+                case 'about':
+                    setPage(<About/>);
                     break;
                 default:
                     setPage(<Home/>);
@@ -69,13 +74,22 @@ const SideBar = () => {
             </NavItem>
         </NavItem>
 
+        <NavItem eventKey="about">
+                <NavIcon>
+                    <TiInfoLargeOutline style={{ fontSize: '1.75em' }}/>
+                </NavIcon>
+                <NavText>
+                    About
+                </NavText>
+        </NavItem>
+
         </SideNav.Nav>
     </SideNav>
         </Col>
-        
-        <Col md="10" sm="10" xs="10" id="MainPage">
-             {page}
-        </Col>
+
+        {/* MainPages Switching */}
+        {page}
+        {/* End of main page switching */}
         </div>
     </div>
         </>

@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
 import '../../stylesheets/Mainpage.css';
-import { createAttachment } from '../controllers/FireController';
 import { SemipolarSpinner } from 'react-epic-spinners';
 import { useHistory } from 'react-router-dom';
+import Axios from 'axios';
+import { Col } from 'react-bootstrap';
+
+const token = localStorage.getItem('USERTOKEN');
+const headers = {
+  headers:{ "Content-Type": "application/json",
+              "Cache-Control": "no-cache",
+              "Access-Control-Allow-Origin": "*",
+              "Authorization":`${token}`,
+              "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"}
+}
 
 const Attachment = () => {
 let history = useHistory();
@@ -14,7 +24,7 @@ const[email,setEmail] = useState("");
 const[name,setName] = useState("");
 const[phone,setPhone] = useState("");
 const[inputStatus,setInputStatus] = useState(false);
-let data ={
+let newData ={
       reg: reg,
       institution: institution,
       city: city,
@@ -46,14 +56,15 @@ const updatePhone = (e) => {
 const sendData = async (e) => {
     e.preventDefault();
     setInputStatus(true);
-    const response = (await createAttachment(data))
-    // console.log(response);
-    // if((await createAttachment(data)).status === 200){
-    //   setInputStatus(false);
-    //   history.push('/login')
-    // }else{
-    //   setInputStatus(false);
-    // }
+    await Axios.post('https://us-central1-classof21-615ab.cloudfunctions.net/api/attachment/',newData,headers)
+    .then(res => {
+      if(res.status === 200){
+        setInputStatus(false);
+        history.push('/');
+      }else{
+        setInputStatus(false);
+      }
+    })    
 }
 
 const loader = () => {
@@ -63,14 +74,15 @@ const loader = () => {
     );
   }else{
     return(
-    <button type="button" className="btn btn-lg btn-outline-primary" style={{marginLeft: '20vw'},{width:'15vw'}}>
+    <button type="button" className="btn btn-lg btn-outline-primary" style={{marginLeft: '20vw',width:'15vw'}}>
     <SemipolarSpinner  className="mx-auto" color="blue" size={30} animationDelay={20} />
     </button>)
   }
 }
 
     return(
-    <><hr/>
+    <Col md="10" sm="10" xs="10" id="MainPage">
+    <hr/>
         <div className="card" id="formCard">
         <div className="card-body">
           <h5 className="card-title">Attachment Form</h5><hr/>
@@ -110,7 +122,7 @@ const loader = () => {
 
         </div>
       </div>
-</>
+</Col>
     );
 }
 

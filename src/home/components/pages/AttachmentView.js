@@ -3,6 +3,7 @@ import '../../stylesheets/Mainpage.css';
 import CenterNav from '../CenterNav';
 import { getAttachments } from '../controllers/FireController';
 import { RadarSpinner } from 'react-epic-spinners';
+import { Col } from 'react-bootstrap';
 
 const AttachmentView = () => {
     useEffect(
@@ -44,7 +45,8 @@ const AttachmentView = () => {
     }
 
     return(
-    <><hr/>
+    <Col md="10" sm="10" xs="10" id="MainPage">
+    <hr/>
     <CenterNav/>
     <div className="Row">
     <div className="col-md-12 col-sm-12">
@@ -52,10 +54,12 @@ const AttachmentView = () => {
         <h5 className="card-title">Attachment Locations Computer Science Year 4 Sem 1</h5>
         <table className="table table-hover">
             <thead>
-                <th scope="col">Reg</th>
-                <th scope="col">Name</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Institution</th>
+                <tr>
+                    <th scope="col">Reg</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Institution</th>
+                </tr>
             </thead>
             
               {loadData()}
@@ -65,7 +69,7 @@ const AttachmentView = () => {
         </div>
 
         </div>
-</>
+    </Col>
     );
 }
 

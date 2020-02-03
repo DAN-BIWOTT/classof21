@@ -14,14 +14,3 @@ export const getAttachments = async() => {
                 
     return result;
 }
-
-export const createAttachment = async(data) => {
-     Axios.post('https://us-central1-classof21-615ab.cloudfunctions.net/api/attachment',data,headers)
-     .then((res) => {
-        return res;
-     })
-    .catch(err => {
-        console.log(err)
-        return err;
-    })
-}
