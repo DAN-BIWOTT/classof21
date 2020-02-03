@@ -16,7 +16,7 @@ export const loginUser = ( userData,history ) => (dispatch) => {
             type: SET_ERRORS,
             payload: err.response.data
         })
-        .catch(err => console.error(err))
+        
     })
 }
 

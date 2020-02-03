@@ -12,12 +12,12 @@ const App = () => {
   let authenticated = false;
   
   if(token === undefined){
-    window.location.href = '/login/#';
+    window.location.href = '/#';
     authenticated = false;
   }else{
     const decodedToken = jwtDecode(token);
     if(decodedToken.exp * 1000 < Date.now()){
-      window.location.href = '/login/#';
+      window.location.href = '/#';
       authenticated = false;
     }else{
       authenticated = true;
@@ -29,8 +29,8 @@ const App = () => {
       <Provider store={store}>
       <Router>
         <Switch>
-          <Route exact path="/" component={ Home } />
-          <AuthRoute exact path="/login" component={ Login } authenticated={ authenticated }/>
+          <Route exact path="/home" component={ Home } />
+          <AuthRoute exact path="/" component={ Login } authenticated={ authenticated }/>
         </Switch>
       </Router>
       </Provider>

@@ -66,8 +66,6 @@ export const Login = () =>{
 
     return(
         <div className="base-container">
-            
-            <div className="header custFont">Login</div>
             <div className="mx-auto shadow p-3 mb-5 bg-transparent rounded">
             <div className="content">
             <div className="image">
