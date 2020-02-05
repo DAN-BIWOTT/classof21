@@ -16,7 +16,8 @@ export const loginUser = ( userData,history ) => (dispatch) => {
             type: SET_ERRORS,
             payload: err.response.data
         })
-        
+    }).catch(err => {
+        console.error(err);
     })
 }
 
@@ -26,7 +27,7 @@ export const signupUser = ( newUserData,history ) => (dispatch) => {
      Axios.post('https://us-central1-classof21-615ab.cloudfunctions.net/api/signup/',newUserData)
     .then(res =>{
         setAuthorizationHeader(res.data.token);
-        dispatch(getUserData());
+        dispatch(getUserData(res.data.token));
         dispatch({type: CLEAR_ERRORS});
         history.push('/home');
     })
@@ -39,9 +40,10 @@ export const signupUser = ( newUserData,history ) => (dispatch) => {
     })
 }
 
-export const getUserData = () => ( dispatch ) => {
-    Axios.get('https://us-central1-classof21-615ab.cloudfunctions.net/api/user')
+export const getUserData = (Authorization) => ( dispatch ) => {
+    Axios.get('https://us-central1-classof21-615ab.cloudfunctions.net/api/user',{"Authorization":`Bearer ${Authorization}`})
     .then(res => {
+        console.log(res)
         dispatch({
             type: SET_USER,
             payload: res.data
@@ -54,10 +56,10 @@ export const getUserData = () => ( dispatch ) => {
 
 export const logoutUser = () => (dispatch) => {
     
-    localStorage.removeItem('USERTOKEN');
+    localStorage.clear();
     delete Axios.defaults.headers.common['Authorization'];
     dispatch({ type: SET_UNAUTHENTICATED });
-    window.location.href = '/login';
+    window.location.href = '/#' ;
 }
 
 const setAuthorizationHeader = (token) => {

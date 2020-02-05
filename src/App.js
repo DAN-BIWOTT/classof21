@@ -2,38 +2,39 @@ import React from 'react';
 import Home from './home/components/SideBar';
 import Login from './login/Main';
 import { BrowserRouter as Router, Switch,Route } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
+
 import AuthRoute from './util/AuthRoute';
-import { Provider } from 'react-redux';
-import store from './redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+
+import jwtDecode from 'jwt-decode';
+import { SET_AUTHENTICATED } from './redux/types';
+import { logoutUser } from './redux/actions/userActions';
+import Axios from 'axios';
 
 const App = () => {
   const token = localStorage.USERTOKEN
-  let authenticated = false;
   
+  const dispatch = useDispatch();
   if(token === undefined){
-    window.location.href = '/#';
-    authenticated = false;
+    dispatch(logoutUser);
   }else{
     const decodedToken = jwtDecode(token);
     if(decodedToken.exp * 1000 < Date.now()){
-      window.location.href = '/#';
-      authenticated = false;
+      dispatch(logoutUser);
     }else{
-      authenticated = true;
+      dispatch({type: SET_AUTHENTICATED});
+      Axios.defaults.headers.common['Authorization'] = token;
     }
   }
-
+ const AuthState = useSelector(state => state.user.authenticated)
   return (
     <React.Fragment>
-      <Provider store={store}>
       <Router>
         <Switch>
           <Route exact path="/home" component={ Home } />
-          <AuthRoute exact path="/" component={ Login } authenticated={ authenticated }/>
+          <AuthRoute exact path="/" component={ Login } authenticated = { AuthState }/>
         </Switch>
       </Router>
-      </Provider>
     </React.Fragment>
   );
 }

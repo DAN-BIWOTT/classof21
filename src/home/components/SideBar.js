@@ -3,11 +3,12 @@ import '../stylesheets/SideBar.css';
 import { Col } from 'react-bootstrap';
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import { FaHome } from "react-icons/fa";
+import { FaHome,FaRegChartBar } from "react-icons/fa";
 import { GoBriefcase } from "react-icons/go";
 import { TiInfoLargeOutline } from "react-icons/ti";
 import Attachment from './pages/Attachment';
 import AttachmentView from './pages/AttachmentView';
+import PrivateAttachment from './pages/PrivateAttachment';
 import About from './pages/About';
 import Home from './pages/Home';
 import { TopNav } from './TopNav';
@@ -20,11 +21,14 @@ const SideBar = () => {
                 case 'home':
                     setPage(<Home/>);
                     break;
+                case 'adminView':
+                    setPage(<AttachmentView/>);
+                    break;
                 case 'attachment':
                     setPage(<Attachment/>);
                     break;
                 case 'attachment/view':
-                    setPage(<AttachmentView/>);
+                    setPage(<PrivateAttachment/>);
                     break;
                 case 'about':
                     setPage(<About/>);
@@ -54,7 +58,14 @@ const SideBar = () => {
                     Home
                 </NavText>
             </NavItem>
-
+            <NavItem eventKey="adminView">
+                <NavIcon>
+                    <FaRegChartBar style={{ fontSize: '1.75em' }}/>
+                </NavIcon>
+                <NavText>
+                    Students
+                </NavText>
+            </NavItem>
             <NavItem eventKey="attachment">
             <NavIcon>
                 <GoBriefcase style={{ fontSize: '1.75em' }}/>

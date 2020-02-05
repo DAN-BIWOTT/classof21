@@ -12,14 +12,16 @@
 
 .customJumbo{
   position: absolute; /* or absolute */
-  width: 40vw;
-  background-color: #343a40cf;
+  background-color: #e9ecef9e;
   border-radius: 25px;
   background-position: left top;
   background-repeat: repeat;
   padding: 20px;
+
+  #customP{
+    font-size: 30px;
+    color: #004085;
+    font-family: 'Titillium Web', sans-serif;
+  }
 }  
 
-h2,p{
-  color: white;
-}

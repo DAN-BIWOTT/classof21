@@ -3,7 +3,7 @@ import { Navbar,Nav,Form,Button } from 'react-bootstrap';
 import '../stylesheets/TopNav.css';
 import { GiExitDoor } from "react-icons/gi";
 import { logoutUser } from '../../redux/actions/userActions';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 export const TopNav = () => {
   const dispatch = useDispatch();

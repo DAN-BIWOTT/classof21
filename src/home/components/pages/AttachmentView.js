@@ -15,7 +15,6 @@ const AttachmentView = () => {
 
     const fetchAttachments = async() => {
         setLoading(true)
-       // console.log((await getAttachments()).data);
         setAttachment((await getAttachments()).data);
         setLoading(false);
     }
@@ -24,8 +23,12 @@ const AttachmentView = () => {
         if(loading === true){
             return(
                 <tbody>
-                    <tr><td></td>
-                        <td> <RadarSpinner center color="green" size={150} animationDelay={20} /></td>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><RadarSpinner center color="green" size={150} animationDelay={20} /></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                  </tbody>
                  )
@@ -34,9 +37,10 @@ const AttachmentView = () => {
                 <tbody>
                 {attachment.map(attach => <tr key={attach.reg} >
                 <th scope="row">{attach.reg}</th>
-                <td>{attach.name}</td>
-                <td>{attach.phone}</td>
-                <td>{attach.institution}</td>
+                <td className="text-center">{attach.name}</td>
+                <td className="text-center">{attach.phone}</td>
+                <td className="text-center">{attach.institution}</td>
+                <td className="text-center">{attach.city}</td>
                     </tr>
                     )}
                 </tbody>
@@ -52,13 +56,14 @@ const AttachmentView = () => {
     <div className="col-md-12 col-sm-12">
         <div className="shadow p-3 mb-5 bg-white rounded">
         <h5 className="card-title">Attachment Locations Computer Science Year 4 Sem 1</h5>
-        <table className="table table-hover">
+        <table className="table table-striped table-hover center">
             <thead>
                 <tr>
                     <th scope="col">Reg</th>
                     <th scope="col">Name</th>
                     <th scope="col">Phone</th>
                     <th scope="col">Institution</th>
+                    <th scope="col">City</th>
                 </tr>
             </thead>
             
