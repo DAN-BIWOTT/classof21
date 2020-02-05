@@ -6,7 +6,7 @@ export const loginUser = ( userData,history ) => (dispatch) => {
      Axios.post('https://us-central1-classof21-615ab.cloudfunctions.net/api/login/',userData)
     .then(res =>{
         setAuthorizationHeader(res.data.token)
-        dispatch(getUserData());
+        dispatch(getUserData(res.data.token));
         dispatch({type: CLEAR_ERRORS});
         history.push('/home');
     })
@@ -36,12 +36,20 @@ export const signupUser = ( newUserData,history ) => (dispatch) => {
         dispatch({
             type: SET_ERRORS,
             payload: err.response.data
-        })
+        });
     })
 }
 
 export const getUserData = (Authorization) => ( dispatch ) => {
-    Axios.get('https://us-central1-classof21-615ab.cloudfunctions.net/api/user',{"Authorization":`Bearer ${Authorization}`})
+    const token = localStorage.getItem('USERTOKEN');
+    const headers = {
+    headers:{ "Content-Type": "application/json",
+              "Cache-Control": "no-cache",
+              "Access-Control-Allow-Origin": "*",
+              "Authorization":`${token}`,
+              "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"}
+}
+    Axios.get('https://us-central1-classof21-615ab.cloudfunctions.net/api/user',headers)
     .then(res => {
         console.log(res)
         dispatch({

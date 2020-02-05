@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
 import './register.scss';
 import { useHistory } from "react-router-dom";
 import { RadarSpinner } from 'react-epic-spinners';
@@ -6,8 +6,16 @@ import reg from '../images/reg.svg';
 // redux stuff
 import {useSelector, useDispatch} from 'react-redux';
 import { signupUser } from '../redux/actions/userActions';
-
+import { CLEAR_ERRORS,UNSET_ERRORSTATE,UNLOADING_UI } from '../redux/types';
 export const Register = () =>{
+    const UIstate = useSelector(state => state.UI);
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch({type: CLEAR_ERRORS});
+        dispatch({type: UNSET_ERRORSTATE});
+        dispatch({type: UNLOADING_UI});
+    },[])
     const[email,setEmail] = useState("");
     const[username,setUserName] = useState("");
     const[password,setPassword] = useState("");
@@ -33,10 +41,13 @@ export const Register = () =>{
     const updateConfirmPassword = (e) => {
         setConfirmPassword(e.target.value);
     }
-    const UIstate = useSelector(state => state.UI);
-    const dispatch = useDispatch();
+    
+
     const submitForm = async(e) => {
         e.preventDefault();
+        dispatch({type: CLEAR_ERRORS});
+        dispatch({type: UNSET_ERRORSTATE});
+        dispatch({type: UNLOADING_UI});
         dispatch(signupUser(newUser,history));
     }
 

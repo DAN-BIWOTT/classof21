@@ -1,4 +1,4 @@
-import { SET_ERRORSTATE,SET_ERRORS,CLEAR_ERRORS,LOADING_UI } from '../types';
+import { SET_ERRORSTATE,SET_ERRORS,CLEAR_ERRORS,LOADING_UI,UNSET_ERRORSTATE,UNLOADING_UI } from '../types';
 
 const initialState = {
     errorState: false,
@@ -11,6 +11,10 @@ export default function(state = initialState,action){
         case SET_ERRORSTATE:
             return {
                 errorState: true
+            } 
+        case UNSET_ERRORSTATE:
+            return {
+                errorState: false
             } 
         case SET_ERRORS:
             return{
@@ -28,6 +32,11 @@ export default function(state = initialState,action){
             return{
                 ...state,
                 loading: true
+            }
+        case UNLOADING_UI:
+            return{
+                ...state,
+                loading: false
             }
         default:
             return state;

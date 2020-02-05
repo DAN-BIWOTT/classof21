@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import loginImage from '../images/login.svg';
 import { RadarSpinner } from 'react-epic-spinners';
 import { useHistory } from "react-router-dom";
 // REDUX STUFF
 import { loginUser } from '../redux/actions/userActions';
 import { useSelector,useDispatch } from 'react-redux';
+import { CLEAR_ERRORS,UNSET_ERRORSTATE,UNLOADING_UI } from '../redux/types';
 
 export const Login = () =>{
+    const uiState = useSelector(state => state.UI);
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch({type: CLEAR_ERRORS});
+        dispatch({type: UNSET_ERRORSTATE});
+        dispatch({type: UNLOADING_UI});
+    },[])
 
     let history = useHistory();
     const[email,setEmail] = useState("");
@@ -23,12 +32,11 @@ export const Login = () =>{
     const updatePassword = (e) => {
         setPassword(e.target.value);
     }
-    const dispatch = useDispatch();
+    
     const submitForm = async(e) => {
         e.preventDefault();
         dispatch(loginUser(user,history));
     }
-    const uiState = useSelector(state => state.UI)
     const renderButton = () => {
         if(uiState.loading === false){
             return (
