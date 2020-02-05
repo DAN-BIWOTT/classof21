@@ -29,6 +29,8 @@ export const Register = () =>{
         confirmPassword: confirmPassword
     }
     
+    
+
     const updateEmail = (e) => {
         setEmail(e.target.value);
     }
