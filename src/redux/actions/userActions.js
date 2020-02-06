@@ -41,7 +41,7 @@ export const signupUser = ( newUserData,history ) => (dispatch) => {
 }
 
 export const getUserData = (Authorization) => ( dispatch ) => {
-    const token = localStorage.getItem('USERTOKEN');
+    const token = Authorization;
     const headers = {
     headers:{ "Content-Type": "application/json",
               "Cache-Control": "no-cache",
@@ -51,7 +51,6 @@ export const getUserData = (Authorization) => ( dispatch ) => {
 }
     Axios.get('https://us-central1-classof21-615ab.cloudfunctions.net/api/user',headers)
     .then(res => {
-        console.log(res)
         dispatch({
             type: SET_USER,
             payload: res.data

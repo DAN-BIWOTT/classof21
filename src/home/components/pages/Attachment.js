@@ -51,12 +51,9 @@ const sendData = async (e) => {
     await Axios.post('https://us-central1-classof21-615ab.cloudfunctions.net/api/attachment/',newData)
     .then(res => {
       Axios.defaults.headers.common['Authorization'] = token;
-      if(res.status === 200){
+        console.log(res)
         setInputStatus(false);
-        history.push('/');
-      }else{
-        setInputStatus(false);
-      }
+        history.push('/home');
     })    
 }
 
@@ -76,7 +73,7 @@ const loader = () => {
     return(
     <Col md="10" sm="10" xs="10" id="MainPage">
     <hr/>
-        <div className="card" id="formCard">
+        <div className="card" id="formCard" style={{opacity: "0.9"}}>
         <div className="card-body">
           <h5 className="card-title">Attachment Form</h5><hr/>
           <h6 className="card-subtitle mb-2 text-muted">January-May</h6>

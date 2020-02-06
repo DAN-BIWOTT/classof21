@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../stylesheets/SideBar.css';
 import { Col } from 'react-bootstrap';
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
@@ -12,10 +12,22 @@ import PrivateAttachment from './pages/PrivateAttachment';
 import About from './pages/About';
 import Home from './pages/Home';
 import { TopNav } from './TopNav';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserData } from '../../redux/actions/userActions';
+import { checkPermission } from '../../helpers/helpers';
 
 const SideBar = () => {
-    const[page,setPage] = useState(<Home/>);
+    const Token = localStorage.getItem('USERTOKEN');
+    const dispatch = useDispatch();
+    useEffect(
+        () => {
+            dispatch(getUserData(Token))
+        },[]
+    )
+    const userData = useSelector(state => state.user);
     
+    const allowed = checkPermission(userData.userHandle);
+    const[page,setPage] = useState(<Home/>);
     const changePage = (selected) =>{
      switch (selected) {
                 case 'home':
@@ -58,6 +70,7 @@ const SideBar = () => {
                     Home
                 </NavText>
             </NavItem>
+            {allowed && 
             <NavItem eventKey="adminView">
                 <NavIcon>
                     <FaRegChartBar style={{ fontSize: '1.75em' }}/>
@@ -65,7 +78,7 @@ const SideBar = () => {
                 <NavText>
                     Students
                 </NavText>
-            </NavItem>
+            </NavItem>}
             <NavItem eventKey="attachment">
             <NavIcon>
                 <GoBriefcase style={{ fontSize: '1.75em' }}/>
