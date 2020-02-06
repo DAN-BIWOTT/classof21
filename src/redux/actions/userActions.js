@@ -66,7 +66,7 @@ export const logoutUser = () => (dispatch) => {
     localStorage.clear();
     delete Axios.defaults.headers.common['Authorization'];
     dispatch({ type: SET_UNAUTHENTICATED });
-    window.location.href = '/#' ;
+    window.location.href = '/#';
 }
 
 const setAuthorizationHeader = (token) => {
