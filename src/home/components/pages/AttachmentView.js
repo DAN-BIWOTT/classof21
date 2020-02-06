@@ -1,13 +1,12 @@
 import React, { useEffect,useState } from 'react';
 import '../../stylesheets/Mainpage.css';
-import CenterNav from '../CenterNav';
 import { getAttachments } from '../controllers/FireController';
 import { RadarSpinner } from 'react-epic-spinners';
 import { Col } from 'react-bootstrap';
 import '../../stylesheets/View.scss';
-import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
-import ReactPDF from '@react-pdf/renderer';
+import Pdf from "react-to-pdf";
 
+const ref = React.createRef();
 
 const AttachmentView = () => {
     useEffect(
@@ -55,13 +54,18 @@ const AttachmentView = () => {
     return(
     <Col md="10" sm="10" xs="10" id="ViewPage">
     <hr/>
-    <CenterNav/>
+    <ul className="nav justify-content-center">
+            <li className="nav-item">
+    <Pdf targetRef={ref} filename="Attachment-Places.pdf">
+        {({ toPdf }) => <button className="btn btn-outline-info mb-4 nav-link active" onClick={toPdf}>Generate Pdf</button>}
+    </Pdf>
+    </li>
+        </ul>
     <div className="Row">
-        <button className="btn btn-md btn-success">Save</button>
     <div className="view col-md-12 col-sm-12">
         <div className="shadow p-3 mb-5 bg-white rounded">
         <h5 className="card-title">Attachment Locations Computer Science Year 4 Sem 1</h5>
-        <table className="table table-striped table-hover">
+        <table ref={ref} className="table table-striped table-hover">
             <thead>
                 <tr>
                     <th scope="col">Reg</th>
@@ -82,34 +86,5 @@ const AttachmentView = () => {
     </Col>
     );
 }
-
-// Create styles
-const styles = StyleSheet.create({
-    page: {
-      flexDirection: 'row',
-      backgroundColor: '#E4E4E4'
-    },
-    section: {
-      margin: 10,
-      padding: 10,
-      flexGrow: 1
-    }
-  });
-   
-  // Create Document Component
-  const MyDocument = () => (
-    <Document>
-      <Page size="A4" style={styles.page}>
-        <View style={styles.section}>
-          <Text>Section #1</Text>
-        </View>
-        <View style={styles.section}>
-          <Text>Section #2</Text>
-        </View>
-      </Page>
-    </Document>
-  );
-  
-ReactPDF.render(<MyDocument />, `${__dirname}/output.pdf`);
 
 export default AttachmentView;
