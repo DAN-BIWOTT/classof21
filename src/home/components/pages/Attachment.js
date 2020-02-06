@@ -53,7 +53,7 @@ const sendData = async (e) => {
       Axios.defaults.headers.common['Authorization'] = token;
         console.log(res)
         setInputStatus(false);
-        history.push('/home');
+        window.location.href = '/home/#';
     })    
 }
 
