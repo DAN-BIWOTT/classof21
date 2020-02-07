@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import '../../stylesheets/Mainpage.css';
 import { SemipolarSpinner } from 'react-epic-spinners';
-import Axios from 'axios';
 import { Col } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { sendAttachmentData } from '../../../redux/actions/dataAction';
 
 const Attachment = () => {
-const token = localStorage.getItem('USERTOKEN');   
+// Local States declaration
 const[reg,setReg] = useState("");
 const[institution,setInstitution] = useState("");
 const[city,setCity] = useState("");
 const[email,setEmail] = useState("");
 const[name,setName] = useState("");
 const[phone,setPhone] = useState("");
-const[inputStatus,setInputStatus] = useState(false);
-
-const formExistence = useSelector(state => state.user);
+// REDUX declarations
+const dispatch = useDispatch();
+const inputStatus = useSelector(state => state.UI.loading)
+const formExistence = useSelector(state => state.user);//checks if the form exists in the database
 
 let newData ={
       reg: reg,
@@ -45,21 +46,13 @@ const updatePhone = (e) => {
   setPhone(e.target.value);
 }
 
-
-const sendData = async (e) => {
-    e.preventDefault();
-    setInputStatus(true);
-    await Axios.post('https://us-central1-classof21-615ab.cloudfunctions.net/api/attachment/',newData)
-    .then(res => {
-      Axios.defaults.headers.common['Authorization'] = token;
-        console.log(res)
-        setInputStatus(false);
-        window.location.href = '/home/#';
-    })    
+const sendData = (e) =>{
+  e.preventDefault();
+dispatch(sendAttachmentData(newData));
 }
 
 const loader = () => {
-  if(formExistence.reg === null){
+  if(formExistence.reg == null){
       if(inputStatus === false){
         return(
           <button onClick={ sendData } type="button" className="btn btn-primary">Submit</button>

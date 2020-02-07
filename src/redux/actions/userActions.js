@@ -1,6 +1,6 @@
-import { SET_USER, SET_ERRORS,SET_ERRORSTATE, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED } from '../types';
+import { SET_USER, SET_ERRORS,SET_ERRORSTATE, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, UNLOADING_UI } from '../types';
 import Axios from 'axios';
-
+// ::::::::::::::::::::::LOGIN USER:::::::::::::::::::://
 export const loginUser = ( userData,history ) => (dispatch) => {
     dispatch({type: LOADING_UI});
      Axios.post('https://us-central1-classof21-615ab.cloudfunctions.net/api/login/',userData)
@@ -20,7 +20,7 @@ export const loginUser = ( userData,history ) => (dispatch) => {
         console.error(err);
     })
 }
-
+// ::::::::::::::::::::::SIGNUP USER:::::::::::::::::::://
 export const signupUser = ( newUserData,history ) => (dispatch) => {
     
     dispatch({type: LOADING_UI});
@@ -39,7 +39,7 @@ export const signupUser = ( newUserData,history ) => (dispatch) => {
         });
     })
 }
-
+// ::::::::::::::::::::::GET USER DATA:::::::::::::::::::://
 export const getUserData = (Authorization) => ( dispatch ) => {
     const token = Authorization;
     const headers = {
@@ -60,7 +60,7 @@ export const getUserData = (Authorization) => ( dispatch ) => {
         console.log(err);
     })
 }
-
+// ::::::::::::::::::::::LOGOUT USER:::::::::::::::::::://
 export const logoutUser = () => (dispatch) => {
     
     localStorage.clear();
