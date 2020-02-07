@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import '../../stylesheets/Mainpage.css';
 import { SemipolarSpinner } from 'react-epic-spinners';
-import { useHistory } from 'react-router-dom';
 import Axios from 'axios';
 import { Col } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 const Attachment = () => {
-  const token = localStorage.getItem('USERTOKEN');
-let history = useHistory();
-   
+const token = localStorage.getItem('USERTOKEN');   
 const[reg,setReg] = useState("");
 const[institution,setInstitution] = useState("");
 const[city,setCity] = useState("");
@@ -16,6 +14,9 @@ const[email,setEmail] = useState("");
 const[name,setName] = useState("");
 const[phone,setPhone] = useState("");
 const[inputStatus,setInputStatus] = useState(false);
+
+const formExistence = useSelector(state => state.user);
+
 let newData ={
       reg: reg,
       institution: institution,
@@ -58,15 +59,21 @@ const sendData = async (e) => {
 }
 
 const loader = () => {
-  if(inputStatus === false){
-    return(
-      <button onClick={ sendData } type="button" className="btn btn-primary">Submit</button>
-    );
+  if(formExistence.reg === null){
+      if(inputStatus === false){
+        return(
+          <button onClick={ sendData } type="button" className="btn btn-primary">Submit</button>
+        );
+      }else{
+        return(
+        <button type="button" className="btn btn-lg btn-outline-primary" style={{marginLeft: '20vw',width:'15vw'}}>
+        <SemipolarSpinner  className="mx-auto" color="blue" size={30} animationDelay={20} />
+        </button>)
+      }
   }else{
     return(
-    <button type="button" className="btn btn-lg btn-outline-primary" style={{marginLeft: '20vw',width:'15vw'}}>
-    <SemipolarSpinner  className="mx-auto" color="blue" size={30} animationDelay={20} />
-    </button>)
+      <button type="button" className="btn btn-danger">We have your form</button>
+    );
   }
 }
 

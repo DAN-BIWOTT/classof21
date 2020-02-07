@@ -4,6 +4,9 @@ import { Col } from 'react-bootstrap';
 import  logo from '../../../images/logo.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserData } from '../../../redux/actions/userActions';
+import Pdf from "react-to-pdf";
+
+const ref = React.createRef();
 
 const AttachmentView = () => {
   // declarations and initialization.
@@ -26,9 +29,18 @@ const AttachmentView = () => {
     const institution = userData.institution;
     const city = userData.city;
 
+    const options = {
+      orientation: 'landscape',
+      unit: 'in',
+      format: [700,500]
+  };
+  
     return(
     <Col md="10" sm="10" xs="10" id="MainPage">
-<div className="col-md-10 shadow-lg p-3 mb-5 bg-white rounded" id="cardBody">
+      <Pdf targetRef={ref} filename="Attachment-Places.pdf" options={options} x={.5} y={.5}>
+        {({ toPdf }) => <button className="btn btn-md btn-info my-4" style={{width:"40%"}} onClick={toPdf}>Generate Pdf</button>}
+    </Pdf>
+<div ref={ref} className="col-md-10 shadow-lg p-3 mb-5 d-none d-md-block d-lg-block bg-white rounded " id="cardBody">
     <header className="clearfix">
       <div id="logo">
         <img src={logo} alt=""/>
@@ -54,19 +66,19 @@ const AttachmentView = () => {
         <thead>
           <tr>
             <th className="no">#</th>
-            <th className="desc">DESCRIPTION</th>
+            <th style={{background: "#EEEEEE"}} className="desc">DESCRIPTION</th>
             <th className="total">CONTACTS</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td className="no">Institution</td>
-            <td className="desc"><h2 style={{color:'black'}}>{institution}</h2></td>
+            <td style={{background: "#EEEEEE"}} className="desc"><h2 style={{color:'black'}}>{institution}</h2></td>
             <td className="no"><a href={`mailto: ${email}`}>{email}</a></td>
           </tr>
           <tr>
             <td className="no">City/Town</td>
-            <td className="desc"><h2 style={{color:'black'}}>{city}</h2></td>
+            <td style={{background: "#EEEEEE"}} className="desc"><h2 style={{color:'black'}}>{city}</h2></td>
             <td className="no">{phone}</td>
           </tr>
         </tbody>

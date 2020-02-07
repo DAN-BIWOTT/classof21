@@ -51,19 +51,25 @@ const AttachmentView = () => {
         }
     }
 
+    const options = {
+        orientation: 'landscape',
+        unit: 'in',
+        format: [900,600]
+    };
+
     return(
     <Col md="10" sm="10" xs="10" id="ViewPage">
     <hr/>
     <ul className="nav justify-content-center">
             <li className="nav-item">
-    <Pdf targetRef={ref} filename="Attachment-Places.pdf">
+    <Pdf targetRef={ref} filename="Attachment-Places.pdf" options={options}>
         {({ toPdf }) => <button className="btn btn-outline-info mb-4 nav-link active" onClick={toPdf}>Generate Pdf</button>}
     </Pdf>
     </li>
         </ul>
     <div className="Row">
     <div className="view col-md-12 col-sm-12">
-        <div className="shadow p-3 mb-5 bg-white rounded">
+        <div  className="shadow p-3 mb-5 bg-white rounded d-none  d-md-block d-lg-block">
         <h5 className="card-title">Attachment Locations Computer Science Year 4 Sem 1</h5>
         <table ref={ref} className="table table-striped table-hover">
             <thead>
